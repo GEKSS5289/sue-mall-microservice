@@ -12,5 +12,16 @@
 
     <artifactId>sue-item-service</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.sue</groupId>
+            <artifactId>sue-item-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sue</groupId>
+            <artifactId>sue-item-mapper</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 </project>

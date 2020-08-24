@@ -10,7 +10,19 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>sue-cart-pojo</artifactId>
+    <artifactId>sue-order-mapper</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.sue</groupId>
+            <artifactId>sue-order-pojo</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sue</groupId>
+            <artifactId>sue-common</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
 
 </project>
