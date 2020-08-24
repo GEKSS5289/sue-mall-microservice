@@ -1,6 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding" defaultCharsetForPropertiesFiles="UTF-8">
+    <file url="file://$PROJECT_DIR$/common/sue-common/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common/sue-common/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common/sue-shared-pojo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common/sue-shared-pojo/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common/sue-web-component/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common/sue-web-component/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/cart/sue-cart-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/cart/sue-cart-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/cart/sue-cart-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/cart/sue-cart-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/cart/sue-cart-web/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/cart/sue-cart-web/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/file/sue-file-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/file/sue-file-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/file/sue-file-web/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/file/sue-file-web/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/item/sue-item-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/item/sue-item-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/item/sue-item-mapper/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/item/sue-item-mapper/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/item/sue-item-pojo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/item/sue-item-pojo/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/item/sue-item-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/item/sue-item-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/item/sue-item-web/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/item/sue-item-web/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/order/sue-order-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/order/sue-order-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/order/sue-order-mapper/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/order/sue-order-mapper/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/order/sue-order-pojo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/order/sue-order-pojo/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/order/sue-order-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/order/sue-order-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/order/sue-order-web/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/order/sue-order-web/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/search/sue-search-pojo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/search/sue-search-pojo/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/search/sue-search-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/search/sue-search-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/search/sue-search-web/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/search/sue-search-web/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/user/sue-user-api/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/user/sue-user-api/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/user/sue-user-mapper/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/user/sue-user-mapper/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/user/sue-user-pojo/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/user/sue-user-pojo/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/user/sue-user-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/user/sue-user-service/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/user/sue-user-web/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/domain/user/sue-user-web/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/platform/sue-register-center/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/platform/sue-register-center/src/main/resources" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
   </component>
 </project>

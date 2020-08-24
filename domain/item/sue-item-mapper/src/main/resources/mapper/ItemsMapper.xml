@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.sue.item.mapper.ItemsMapper" >
+  <resultMap id="BaseResultMap" type="com.sue.item.pojo.Items" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="item_name" property="itemName" jdbcType="VARCHAR" />
+    <result column="cat_id" property="catId" jdbcType="INTEGER" />
+    <result column="root_cat_id" property="rootCatId" jdbcType="INTEGER" />
+    <result column="sell_counts" property="sellCounts" jdbcType="INTEGER" />
+    <result column="on_off_status" property="onOffStatus" jdbcType="INTEGER" />
+    <result column="created_time" property="createdTime" jdbcType="TIMESTAMP" />
+    <result column="updated_time" property="updatedTime" jdbcType="TIMESTAMP" />
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  
+  <select id="queryItemComments" parameterType="Map" resultType="com.sue.item.pojo.vo.ItemCommentVO">
+    select
+       ic.comment_level as commentLevel,
+       ic.content as content,
+       ic.sepc_name as specName,
+       ic.created_time as createdTime,
+       u.face as userFace,
+       u.nickname as nickname
+    from
+       items_comments ic
+    left join
+       users u
+    on
+       ic.user_id = u.id
+    where
+       ic.item_id = #{paramsMap.itemId}
+    <if test="paramsMap.level != null and paramsMap.level != '' ">
+      and ic.comment_level = #{paramsMap.level}
+    </if>
+
+  </select>
+
+
+    <select id="queryItemsBySpecIds" parameterType="List" resultType="com.sue.item.pojo.vo.ShopCartVO">
+
+    select
+        t_items.id as itemId,
+        t_items.item_name as itemName,
+        t_items_img.url as itemImgUrl,
+        t_items_spec.id as specId,
+        t_items_spec.`name` as specName,
+        t_items_spec.price_discount as priceDiscount,
+        t_items_spec.price_normal as priceNormal
+    from
+	    items_spec t_items_spec
+    left join
+	    items t_items
+    on
+	    t_items.id = t_items_spec.item_id
+    left join
+	    items_img t_items_img
+    on
+	    t_items_img.item_id = t_items.id
+    where
+	    t_items_img.is_main = 1
+    AND
+	    t_items_spec.id IN
+	    <foreach collection="paramsList" index="index" item="specId" open="("  separator="," close=")">
+            #{specId}
+        </foreach>
+
+    </select>
+
+<!--乐观锁-->
+    <update id="decreaseItemSpecStock">
+
+        update
+            items_spec
+        set
+            stock = stock - #{pendingCounts}
+        where
+            id = #{specId}
+        and
+            stock >= #{pendingCounts}
+
+
+    </update>
+
+
+</mapper>
