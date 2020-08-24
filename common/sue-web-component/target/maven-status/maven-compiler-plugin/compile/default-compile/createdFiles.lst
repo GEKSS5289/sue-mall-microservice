@@ -1,0 +1,4 @@
+com\sue\config\Swagger2.class
+com\sue\controller\BaseController.class
+com\sue\aspect\ServiceLogAspect.class
+com\sue\config\WebMvcConfig.class

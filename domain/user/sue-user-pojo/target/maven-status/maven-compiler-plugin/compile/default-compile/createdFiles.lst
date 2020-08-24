@@ -1,0 +1,6 @@
+com\sue\user\pojo\UserAddress.class
+com\sue\user\pojo\dto\AddressDTO.class
+com\sue\user\pojo\dto\UserRegisterDTO.class
+com\sue\user\pojo\Users.class
+com\sue\user\pojo\dto\UserDTO.class
+com\sue\user\pojo\dto\center\CenterUserDTO.class

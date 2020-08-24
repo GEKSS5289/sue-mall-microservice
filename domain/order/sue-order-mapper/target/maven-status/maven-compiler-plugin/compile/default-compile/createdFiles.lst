@@ -1,0 +1,3 @@
+com\sue\order\mapper\OrderStatusMapper.class
+com\sue\order\mapper\OrdersMapper.class
+com\sue\order\mapper\OrderItemsMapper.class
