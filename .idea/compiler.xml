@@ -7,11 +7,13 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="sue-common" />
+        <module name="sue-hystrix-turbine" />
         <module name="sue-file-service" />
         <module name="sue-user-pojo" />
         <module name="sue-search-web" />
         <module name="sue-user-service" />
         <module name="sue-search-service" />
+        <module name="sue-hystrix-dashboard" />
         <module name="sue-order-web" />
         <module name="sue-search-pojo" />
         <module name="sue-item-pojo" />

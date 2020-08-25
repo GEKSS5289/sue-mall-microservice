@@ -36,6 +36,8 @@
         <module>domain/search/sue-search-web</module>
         <module>domain/file/sue-file-service</module>
         <module>domain/file/sue-file-web</module>
+        <module>platform/sue-hystrix-turbine</module>
+        <module>platform/sue-hystrix-dashboard</module>
 
     </modules>
 

@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: sue-hystrix-turbine
+server:
+  port: 20001
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:20000/eureka/
+management:
+  server:
+    port: 52001
+turbine:
+  aggregator:
+    cluster-config: default
+  app-config: sue-user-service,sue-item-service,sue-order-service
+# 集群名称default
+  cluster-name-expression: '"default"'
+# 根据host+port形式组合区分
+  combine-host-port: true
+  #actuator的端点拉取方法调用信息
+  instanceUrlSuffix:
+      default: actuator/hystrix.stream

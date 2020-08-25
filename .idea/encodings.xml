@@ -53,6 +53,10 @@
     <file url="file://$PROJECT_DIR$/domain/user/sue-user-service/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/domain/user/sue-user-web/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/domain/user/sue-user-web/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/platform/sue-hystrix-dashboard/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/platform/sue-hystrix-dashboard/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/platform/sue-hystrix-turbine/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/platform/sue-hystrix-turbine/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/platform/sue-register-center/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/platform/sue-register-center/src/main/resources" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />
