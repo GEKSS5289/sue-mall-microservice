@@ -8,6 +8,11 @@ import com.sue.item.pojo.ItemsSpec;
 import com.sue.item.pojo.vo.CommentLevelCountsVO;
 import com.sue.item.pojo.vo.ShopCartVO;
 import com.sue.pojo.PagedGridResult;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -15,7 +20,8 @@ import java.util.List;
  * @author sue
  * @date 2020/8/1 17:36
  */
-
+@FeignClient("sue-item-service")
+@RequestMapping("item-api")
 public interface ItemService {
 
     /**
@@ -24,7 +30,8 @@ public interface ItemService {
      * @param itemId
      * @return
      */
-    public Items queryItemById(String itemId);
+    @GetMapping("/item")
+    public Items queryItemById(@RequestParam("itemId") String itemId);
 
     /**
      * 根据商品Id查询商品图片列表
@@ -32,7 +39,8 @@ public interface ItemService {
      * @param itemId
      * @return
      */
-    public List<ItemsImg> queryItemImgList(String itemId);
+    @GetMapping("/itemImages")
+    public List<ItemsImg> queryItemImgList(@RequestParam("itemId")String itemId);
 
 
     /**
@@ -41,7 +49,8 @@ public interface ItemService {
      * @param itemId
      * @return
      */
-    public List<ItemsSpec> queryItemSpecList(String itemId);
+    @GetMapping("/itemSpecs")
+    public List<ItemsSpec> queryItemSpecList(@RequestParam("itemId")String itemId);
 
 
     /**
@@ -50,7 +59,8 @@ public interface ItemService {
      * @param itemId
      * @return
      */
-    public ItemsParam queryItemParam(String itemId);
+    @GetMapping("/itemParam")
+    public ItemsParam queryItemParam(@RequestParam("itemId")String itemId);
 
 
     /**
@@ -58,7 +68,8 @@ public interface ItemService {
      *
      * @param itemId
      */
-    public CommentLevelCountsVO queryCommentCounts(String itemId);
+    @GetMapping("/countComments")
+    public CommentLevelCountsVO queryCommentCounts(@RequestParam("itemId")String itemId);
 
 
     /**
@@ -68,9 +79,11 @@ public interface ItemService {
      * @param level
      * @return
      */
-    public PagedGridResult queryPageComments(String itemId, Integer level
-            , Integer page
-            , Integer pageSize);
+    @GetMapping("/pagedComment")
+    public PagedGridResult queryPageComments(@RequestParam("itemId")String itemId,
+                                             @RequestParam(value = "level",required = false)Integer level,
+                                             @RequestParam(value = "page",required = false)Integer page,
+                                             @RequestParam(value = "pageSize",required = false)Integer pageSize);
 
 
     /**
@@ -103,7 +116,8 @@ public interface ItemService {
      * @param specIds
      * @return
      */
-    public List<ShopCartVO> queryItemsBySpecIds(String specIds);
+    @GetMapping("/getCartBySpecIds")
+    public List<ShopCartVO> queryItemsBySpecIds(@RequestParam("specIds")String specIds);
 
 
     /**
@@ -112,7 +126,8 @@ public interface ItemService {
      * @param specId
      * @return
      */
-    public ItemsSpec queryItemSpecById(String specId);
+    @GetMapping("/itemSpec")
+    public ItemsSpec queryItemSpecById(@RequestParam("specId")String specId);
 
 
     /**
@@ -121,7 +136,8 @@ public interface ItemService {
      * @param itemId
      * @return
      */
-    public String queryItemMainImgById(String itemId);
+    @GetMapping("/primaryImage")
+    public String queryItemMainImgById(@RequestParam("itemId")String itemId);
 
 
     /**
@@ -130,6 +146,8 @@ public interface ItemService {
      * @param specId
      * @param buyCounts
      */
-    public void decreaseItemSpecStock(String specId, int buyCounts);
+    @PostMapping("/decreaseStock")
+    public void decreaseItemSpecStock(@RequestParam("specId")String specId,
+                                      @RequestParam("buyCounts")int buyCounts);
 
 }

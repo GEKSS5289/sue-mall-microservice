@@ -4,7 +4,9 @@ package com.sue.order.service.impl.center;
 import com.github.pagehelper.PageHelper;
 import com.sue.enums.YesOrNO;
 import com.sue.item.mapper.ItemsCommentsMapper;
+import com.sue.item.pojo.ItemsComments;
 import com.sue.item.pojo.vo.MyCommentVO;
+import com.sue.item.service.ItemCommentsService;
 import com.sue.order.mapper.OrderItemsMapper;
 import com.sue.order.mapper.OrderStatusMapper;
 import com.sue.order.mapper.OrdersMapper;
@@ -20,6 +22,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -31,7 +34,7 @@ import java.util.Map;
  * @author sue
  * @date 2020/8/4 10:11
  */
-@Service
+@RestController
 public class MyCommentServiceImpl implements MyCommentService {
 
     @Resource
@@ -40,6 +43,8 @@ public class MyCommentServiceImpl implements MyCommentService {
 //    @Resource
 //    private ItemsCommentsMapper itemsCommentsMapper;
 
+    @Autowired
+    private ItemCommentsService itemCommentsService;
     @Resource
     private OrdersMapper ordersMapper;
 
@@ -63,55 +68,44 @@ public class MyCommentServiceImpl implements MyCommentService {
         return orderItemsMapper.select(query);
     }
 
+    /**
+     * 保存用户的评价
+     *
+     * @param orderId
+     * @param userId
+     * @param commentDTOS
+     */
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public void saveComments(String orderId, String userId, List<OrderItemsCommentDTO> commentDTOS) {
 
+        //1.保存评价 items_comments
+
+        for (OrderItemsCommentDTO oic : commentDTOS) {
+            oic.setCommentId(sid.nextShort());
+        }
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("userId", userId);
+        map.put("commentList", commentDTOS);
+        itemCommentsService.saveComments(map);
+
+
+        //2.修改订单表已评价
+        Orders orders = new Orders();
+        orders.setId(orderId);
+        orders.setIsComment(YesOrNO.YES.type);
+        ordersMapper.updateByPrimaryKeySelective(orders);
+
+
+        //3.修改订单状态表的留言时间
+        OrderStatus orderStatus = new OrderStatus();
+        orderStatus.setOrderId(orderId);
+        orderStatus.setCommentTime(new Date());
+        orderStatusMapper.updateByPrimaryKeySelective(orderStatus);
+
+
     }
-
-    @Override
-    public PagedGridResult queryMyComments(String userId, Integer page, Integer pageSize) {
-        return null;
-    }
-
-
-//    /**
-//     * 保存用户的评价
-//     *
-//     * @param orderId
-//     * @param userId
-//     * @param commentDTOS
-//     */
-//    @Transactional(propagation = Propagation.REQUIRED)
-//    @Override
-//    public void saveComments(String orderId, String userId, List<OrderItemsCommentDTO> commentDTOS) {
-//
-//        //1.保存评价 items_comments
-//
-//        for (OrderItemsCommentDTO oic : commentDTOS) {
-//            oic.setCommentId(sid.nextShort());
-//        }
-//
-//        Map<String, Object> map = new HashMap<>();
-//        map.put("userId", userId);
-//        map.put("commentList", commentDTOS);
-//        itemsCommentsMapper.saveComments(map);
-//
-//
-//        //2.修改订单表已评价
-//        Orders orders = new Orders();
-//        orders.setId(orderId);
-//        orders.setIsComment(YesOrNO.YES.type);
-//        ordersMapper.updateByPrimaryKeySelective(orders);
-//
-//
-//        //3.修改订单状态表的留言时间
-//        OrderStatus orderStatus = new OrderStatus();
-//        orderStatus.setOrderId(orderId);
-//        orderStatus.setCommentTime(new Date());
-//        orderStatusMapper.updateByPrimaryKeySelective(orderStatus);
-//
-//
-//    }
 
 
 //    /**

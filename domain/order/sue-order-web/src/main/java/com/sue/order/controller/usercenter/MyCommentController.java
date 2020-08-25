@@ -3,6 +3,7 @@ package com.sue.order.controller.usercenter;
 
 import com.sue.controller.BaseController;
 import com.sue.enums.YesOrNO;
+import com.sue.item.service.ItemCommentsService;
 import com.sue.order.pojo.OrderItems;
 import com.sue.order.pojo.Orders;
 import com.sue.order.pojo.dto.center.OrderItemsCommentDTO;
@@ -42,6 +43,8 @@ public class MyCommentController extends BaseController {
     @Autowired
     private MyOrdersService myOrdersService;
 
+    @Autowired
+    private ItemCommentsService itemCommentsService;
 
     @ApiOperation(value = "查询订单列表", notes = "查询订单列表", httpMethod = "POST")
     @PostMapping("/pending")
@@ -111,7 +114,7 @@ public class MyCommentController extends BaseController {
             return IMOOCJSONResult.errorMsg(null);
         }
 
-        PagedGridResult pagedGridResult = myCommentService.queryMyComments(userId, page, pageSize);
+        PagedGridResult pagedGridResult = itemCommentsService.queryMyComments(userId, page, pageSize);
 
         return IMOOCJSONResult.ok(pagedGridResult);
     }

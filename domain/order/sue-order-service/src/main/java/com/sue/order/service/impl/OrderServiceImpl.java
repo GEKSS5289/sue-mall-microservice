@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -35,16 +36,15 @@ import java.util.List;
  * @author sue
  * @date 2020/8/2 16:28
  */
-
-@Service
+@RestController
 public class OrderServiceImpl implements OrderService {
 
 
-//    @Autowired
-//    private AddressService addressService;
+    @Autowired
+    private AddressService addressService;
 //
-//    @Autowired
-//    private ItemService itemService;
+    @Autowired
+    private ItemService itemService;
 
     @Resource
     private OrdersMapper ordersMapper;
@@ -64,102 +64,102 @@ public class OrderServiceImpl implements OrderService {
      *
      * @param submitOrderDTO
      */
-//    @Transactional(propagation = Propagation.REQUIRED)
-//    @Override
-//    public OrderVO createOrder(List<ShopcartDTO> list, SubmitOrderDTO submitOrderDTO) {
-//
-//
-//        String userId = submitOrderDTO.getUserId();
-//        String addressId = submitOrderDTO.getAddressId();
-//        String itemSpecIds = submitOrderDTO.getItemSpecIds();
-//
-////         Integer payMethod = submitOrderDTO.getPayMethod();
-////         String leftMsg = submitOrderDTO.getLeftMsg();
-//
-//
-//        //查询用户具体地址
-//        UserAddress userAddress = addressService.queryUserAddress(userId, addressId);
-//        //1.新订单保存
-//        String orderId = sid.nextShort();
-//        Orders newOrders = new Orders(orderId, submitOrderDTO, userAddress);
-//
-//
-//        //2.循环根据itemSpecIds保存订单商品信息表
-//        String itemSpecIdArr[] = itemSpecIds.split(",");
-//        Integer totalAmount = 0;
-//        Integer realPayAmount = 0; //优惠后的价格累计
-//        List<ShopcartDTO> toBeRemoveShopCartList = new ArrayList<>();
-//
-//
-//        for (String itemSpecId : itemSpecIdArr) {
-//
-//            ShopcartDTO buyCountsFromShopCart = getBuyCountsFromShopCart(list, itemSpecId);
-//            //TODO 整合redis之后，商品购买的数量重新从redis的购物车中获取
-//            int buyCounts = buyCountsFromShopCart.getBuyCounts();
-//            toBeRemoveShopCartList.add(buyCountsFromShopCart);
-//
-//            //2.1 根据规格Id，查询规格的具体信息，主要获取价格
-//            ItemsSpec itemsSpec = itemService.queryItemSpecById(itemSpecId);
-//            totalAmount += itemsSpec.getPriceNormal() * buyCounts;
-//            realPayAmount += itemsSpec.getPriceDiscount() * buyCounts;
-//
-//
-//            //2.2 根据规格id，获得商品信息及商品图片
-//            String itemId = itemsSpec.getItemId();
-//            //获取商品信息
-//            Items items = itemService.queryItemById(itemId);
-//            //获取商品图片信息
-//            String imgUrl = itemService.queryItemMainImgById(itemId);
-//
-//
-//            OrderItems subOrderItem = new OrderItems();
-//            String subOrderId = sid.nextShort();
-//            subOrderItem.setId(subOrderId);
-//            subOrderItem.setOrderId(orderId);
-//            subOrderItem.setItemId(itemId);
-//            subOrderItem.setItemName(items.getItemName());
-//            subOrderItem.setItemImg(imgUrl);
-//            subOrderItem.setItemSpecId(itemSpecId);
-//            subOrderItem.setBuyCounts(buyCounts);
-//            subOrderItem.setItemSpecName(itemsSpec.getName());
-//            subOrderItem.setPrice(itemsSpec.getPriceDiscount());
-//
-//
-//            orderItemsMapper.insert(subOrderItem);
-//
-//            itemService.decreaseItemSpecStock(itemSpecId, buyCounts);
-//
-//        }
-//
-//
-//        newOrders.setTotalAmount(totalAmount);
-//        newOrders.setRealPayAmount(realPayAmount);
-//        ordersMapper.insert(newOrders);
-//
-//
-//        //3.保存订单状态表
-//        OrderStatus waitPayOrderStatus = new OrderStatus();
-//        waitPayOrderStatus.setOrderId(orderId);
-//        waitPayOrderStatus.setOrderStatus(OrderStatusEnum.WAIT_PAY.type);
-//        waitPayOrderStatus.setCreatedTime(new Date());
-//
-//        orderStatusMapper.insert(waitPayOrderStatus);
-//
-//
-//        //构建商户订单，用于传给支付中心
-//        MerchantOrdersVO merchantOrdersVO = new MerchantOrdersVO();
-//        merchantOrdersVO.setMerchantOrderId(orderId);
-//        merchantOrdersVO.setMerchantUserId(userId);
-//        merchantOrdersVO.setAmount(realPayAmount + 0);
-//        merchantOrdersVO.setPayMethod(submitOrderDTO.getPayMethod());
-//
-//        //构建自定义订单VO
-//        OrderVO orderVO = new OrderVO();
-//        orderVO.setOrderId(orderId);
-//        orderVO.setMerchantOrdersVO(merchantOrdersVO);
-//        orderVO.setToBeRemovedShopcatdList(toBeRemoveShopCartList);
-//        return orderVO;
-//    }
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public OrderVO createOrder(List<ShopcartDTO> list, SubmitOrderDTO submitOrderDTO) {
+
+
+        String userId = submitOrderDTO.getUserId();
+        String addressId = submitOrderDTO.getAddressId();
+        String itemSpecIds = submitOrderDTO.getItemSpecIds();
+
+//         Integer payMethod = submitOrderDTO.getPayMethod();
+//         String leftMsg = submitOrderDTO.getLeftMsg();
+
+
+        //查询用户具体地址
+        UserAddress userAddress = addressService.queryUserAddress(userId, addressId);
+        //1.新订单保存
+        String orderId = sid.nextShort();
+        Orders newOrders = new Orders(orderId, submitOrderDTO, userAddress);
+
+
+        //2.循环根据itemSpecIds保存订单商品信息表
+        String itemSpecIdArr[] = itemSpecIds.split(",");
+        Integer totalAmount = 0;
+        Integer realPayAmount = 0; //优惠后的价格累计
+        List<ShopcartDTO> toBeRemoveShopCartList = new ArrayList<>();
+
+
+        for (String itemSpecId : itemSpecIdArr) {
+
+            ShopcartDTO buyCountsFromShopCart = getBuyCountsFromShopCart(list, itemSpecId);
+            //TODO 整合redis之后，商品购买的数量重新从redis的购物车中获取
+            int buyCounts = buyCountsFromShopCart.getBuyCounts();
+            toBeRemoveShopCartList.add(buyCountsFromShopCart);
+
+            //2.1 根据规格Id，查询规格的具体信息，主要获取价格
+            ItemsSpec itemsSpec = itemService.queryItemSpecById(itemSpecId);
+            totalAmount += itemsSpec.getPriceNormal() * buyCounts;
+            realPayAmount += itemsSpec.getPriceDiscount() * buyCounts;
+
+
+            //2.2 根据规格id，获得商品信息及商品图片
+            String itemId = itemsSpec.getItemId();
+            //获取商品信息
+            Items items = itemService.queryItemById(itemId);
+            //获取商品图片信息
+            String imgUrl = itemService.queryItemMainImgById(itemId);
+
+
+            OrderItems subOrderItem = new OrderItems();
+            String subOrderId = sid.nextShort();
+            subOrderItem.setId(subOrderId);
+            subOrderItem.setOrderId(orderId);
+            subOrderItem.setItemId(itemId);
+            subOrderItem.setItemName(items.getItemName());
+            subOrderItem.setItemImg(imgUrl);
+            subOrderItem.setItemSpecId(itemSpecId);
+            subOrderItem.setBuyCounts(buyCounts);
+            subOrderItem.setItemSpecName(itemsSpec.getName());
+            subOrderItem.setPrice(itemsSpec.getPriceDiscount());
+
+
+            orderItemsMapper.insert(subOrderItem);
+
+            itemService.decreaseItemSpecStock(itemSpecId, buyCounts);
+
+        }
+
+
+        newOrders.setTotalAmount(totalAmount);
+        newOrders.setRealPayAmount(realPayAmount);
+        ordersMapper.insert(newOrders);
+
+
+        //3.保存订单状态表
+        OrderStatus waitPayOrderStatus = new OrderStatus();
+        waitPayOrderStatus.setOrderId(orderId);
+        waitPayOrderStatus.setOrderStatus(OrderStatusEnum.WAIT_PAY.type);
+        waitPayOrderStatus.setCreatedTime(new Date());
+
+        orderStatusMapper.insert(waitPayOrderStatus);
+
+
+        //构建商户订单，用于传给支付中心
+        MerchantOrdersVO merchantOrdersVO = new MerchantOrdersVO();
+        merchantOrdersVO.setMerchantOrderId(orderId);
+        merchantOrdersVO.setMerchantUserId(userId);
+        merchantOrdersVO.setAmount(realPayAmount + 0);
+        merchantOrdersVO.setPayMethod(submitOrderDTO.getPayMethod());
+
+        //构建自定义订单VO
+        OrderVO orderVO = new OrderVO();
+        orderVO.setOrderId(orderId);
+        orderVO.setMerchantOrdersVO(merchantOrdersVO);
+        orderVO.setToBeRemovedShopcatdList(toBeRemoveShopCartList);
+        return orderVO;
+    }
 
     /**
      * 从redis中的购物车获取商品目的:counts
@@ -176,10 +176,8 @@ public class OrderServiceImpl implements OrderService {
         return null;
     }
 
-    @Override
-    public OrderVO createOrder(List<ShopcartDTO> list, SubmitOrderDTO submitOrderDTO) {
-        return null;
-    }
+
+
 
     /**
      * 修改订单状态

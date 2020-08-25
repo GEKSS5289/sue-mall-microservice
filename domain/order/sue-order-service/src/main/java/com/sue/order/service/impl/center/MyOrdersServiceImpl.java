@@ -16,6 +16,7 @@ import com.sue.service.PagedGridResultUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RestController;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
@@ -29,7 +30,7 @@ import java.util.Map;
  * @date 2020/8/4 8:35
  */
 
-@Service
+@RestController
 public class MyOrdersServiceImpl implements MyOrdersService {
 
     @Resource
@@ -61,6 +62,11 @@ public class MyOrdersServiceImpl implements MyOrdersService {
         List<MyOrdersVO> myOrdersVOS = ordersMapper.queryMyOrders(map);
 
         return PagedGridResultUtils.setterPagedGrid(myOrdersVOS, page);
+    }
+
+    @Override
+    public void updateDeliverOrderStatus(String orderId) {
+
     }
 
 

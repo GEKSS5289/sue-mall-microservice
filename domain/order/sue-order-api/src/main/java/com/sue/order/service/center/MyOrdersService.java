@@ -3,26 +3,34 @@ package com.sue.order.service.center;
 
 import com.sue.order.pojo.Orders;
 import com.sue.order.pojo.vo.OrderStatusCountsVO;
+import com.sue.pojo.IMOOCJSONResult;
 import com.sue.pojo.PagedGridResult;
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author sue
  * @date 2020/8/4 8:35
  */
 
-public interface MyOrdersService {
+@FeignClient("sue-order-service")
+@RequestMapping("myOrder-api")
+public interface MyOrdersService  {
 
+    @GetMapping("/order/query")
+    public PagedGridResult queryMyOrders(
+            @RequestParam("userId") String userId,
+            @RequestParam("orderStatus") Integer orderStatus,
+            @RequestParam(value = "page",required = false)	Integer page,
+            @RequestParam(value = "pageSize",required = false)	Integer pageSize
+    );
     /**
-     * 查询我的订单列表
-     * @param userId
-     * @param orderStatus
-     * @param page
-     * @param pageSize
-     * @return
+     * 订单状态-》商家发货
      */
-    public PagedGridResult queryMyOrders(String userId, Integer orderStatus,
-                                         Integer page, Integer pageSize);
-
+    @PostMapping("/order/delivered")
+    void updateDeliverOrderStatus(
+            @RequestParam("orderId")String orderId
+    );
 
     /**
      * 查询我的订单
@@ -30,40 +38,60 @@ public interface MyOrdersService {
      * @param orderId
      * @return
      */
-    public Orders queryMyOrder(String userId, String orderId);
+    @GetMapping("/order/details")
+    Orders queryMyOrder(
+            @RequestParam("userId")	String userId,
+            @RequestParam("orderId")String orderId
+    );
 
-
-    /**
-     * 更新订单状态
+    /***
+     * 更新订单状态->确认收获
      * @param orderId
      * @return
      */
-    public boolean updateReceiveOrderStatus(String orderId);
+    @PostMapping("/order/received")
+    boolean updateReceiveOrderStatus(
+            @RequestParam("orderId")	String orderId
+    );
 
     /**
-     * 删除订单（逻辑删除）
+     * 删除订单(逻辑删除)
      * @param userId
      * @param orderId
      * @return
      */
-    public boolean deleteOrder(String userId,String orderId);
-
+    @DeleteMapping("/order")
+    boolean deleteOrder(
+            @RequestParam("userId")	 String userId,
+            @RequestParam("orderId") String orderId
+    );
 
     /**
      * 查询用户订单数
      * @param userId
-     * @return
      */
-    public OrderStatusCountsVO getOrderStatusCounts(String userId);
+    @GetMapping("/order/counts")
+    OrderStatusCountsVO getOrderStatusCounts(
+            @RequestParam("userId")	String userId
+    );
 
-
-    /**
-     * 获得分页订单动向
+    /***
+     * 获得分页的订单动向
      * @param userId
-
      * @param page
      * @param pageSize
      * @return
      */
-    public PagedGridResult getOrdersTrend(String userId,Integer page,Integer pageSize);
+    @GetMapping("/order/trend")
+    PagedGridResult getOrdersTrend(
+            @RequestParam("userId")	String userId,
+            @RequestParam(value = "page",required = false)	Integer page,
+            @RequestParam(value = "pageSize",required = false)	Integer pageSize
+    );
+
+//    @GetMapping("/checkUserOrder")
+//    public IMOOCJSONResult checkUserOrder(
+//            @RequestParam("userId") String userId,
+//            @RequestParam("orderId")String orderId
+//    );
 }
