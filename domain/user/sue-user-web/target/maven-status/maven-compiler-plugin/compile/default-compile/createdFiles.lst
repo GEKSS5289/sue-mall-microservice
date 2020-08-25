@@ -8,6 +8,7 @@ com\sue\core\configuration\ExceptionCodeConfiguration.class
 com\sue\user\controller\AddressController.class
 com\sue\exception\usercenterexception\MyOrderException.class
 com\sue\user\controller\usercenter\CenterController.class
+com\sue\user\controller\usercenter\UserCenterController.class
 com\sue\core\ExceptionCatcher.class
 com\sue\exception\usercenterexception\MyCommentException.class
 com\sue\core\util\ClearDataUtils.class
