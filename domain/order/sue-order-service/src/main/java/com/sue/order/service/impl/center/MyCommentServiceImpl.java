@@ -7,6 +7,7 @@ import com.sue.item.mapper.ItemsCommentsMapper;
 import com.sue.item.pojo.ItemsComments;
 import com.sue.item.pojo.vo.MyCommentVO;
 import com.sue.item.service.ItemCommentsService;
+import com.sue.order.fallback.itemservice.ItemCommentsFeignClient;
 import com.sue.order.mapper.OrderItemsMapper;
 import com.sue.order.mapper.OrderStatusMapper;
 import com.sue.order.mapper.OrdersMapper;
@@ -43,8 +44,11 @@ public class MyCommentServiceImpl implements MyCommentService {
 //    @Resource
 //    private ItemsCommentsMapper itemsCommentsMapper;
 
+//    @Autowired
+//    private ItemCommentsService itemCommentsService;
+
     @Autowired
-    private ItemCommentsService itemCommentsService;
+    private ItemCommentsFeignClient itemCommentsService;
     @Resource
     private OrdersMapper ordersMapper;
 

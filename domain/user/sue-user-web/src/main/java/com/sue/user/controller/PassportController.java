@@ -1,5 +1,7 @@
 package com.sue.user.controller;
 
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import com.sue.controller.BaseController;
 import com.sue.exception.mallexception.PassportException;
 import com.sue.pojo.IMOOCJSONResult;
@@ -105,6 +107,28 @@ public class PassportController extends BaseController {
 
     @ApiOperation(value = "用户登录", notes = "用户登录", httpMethod = "POST")
     @PostMapping("/login")
+    @HystrixCommand(
+            commandKey = "loginFail",//全局唯一的标识服务，默认函数名称
+            groupKey = "password",//全局服务分组，用于组织仪表盘，统计信息
+            fallbackMethod = "loginFail",//同一个类，public/private都可以
+//            ignoreExceptions = {IllegalAccessError.class}//在列表中的exception，不会触发降级
+            //线程有关属性
+            //线程组
+            threadPoolKey="threadPoolA",
+            threadPoolProperties = {
+                    @HystrixProperty(name="coreSize",value="20"),
+                    //size>0 || size<0,
+                    //默认-1
+                    @HystrixProperty(name="maxQueueSize",value="40"),
+                    @HystrixProperty(name="queueSizeRejectionThreshold",value="15"),
+                    @HystrixProperty(name = "metrics.rollingStats.timeInMilliseconds",value = "1024"),
+                    @HystrixProperty(name = "metrics.rollingStats.numBuckets",value = "18"),
+            }
+//            commandProperties = {
+//                    //TODO 熔断降级相关属性，也可以放在这里
+//            }
+
+    )
     public IMOOCJSONResult login(
             @Valid @RequestBody UserDTO userDTO,
             HttpServletRequest request,
@@ -215,5 +239,14 @@ public class PassportController extends BaseController {
         BeanUtils.copyProperties(user,usersVO);
         usersVO.setUserUniqueToken(uniqueToken);
         return usersVO;
+    }
+
+    private IMOOCJSONResult loginFail(
+            @RequestBody UserDTO userBO,
+            HttpServletRequest request,
+            HttpServletResponse response,
+            Throwable throwable
+    ){
+        return IMOOCJSONResult.errorMsg("验证码输入错误");
     }
 }

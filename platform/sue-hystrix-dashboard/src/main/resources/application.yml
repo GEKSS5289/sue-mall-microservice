@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: sue-hystrix-dashboard
+server:
+  port: 20002

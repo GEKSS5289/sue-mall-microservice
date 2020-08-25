@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "hystrix.command.default.circuitBreaker.errorThresholdPercentage",
+      "type": "java.lang.String",
+      "description": "Description for hystrix.command.default.circuitBreaker.errorThresholdPercentage."
+  }
+] }

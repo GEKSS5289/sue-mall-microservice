@@ -27,3 +27,41 @@ spring:
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  security:
+    enabled: false
+
+hystrix:
+  command:
+    default:
+      fallback:
+        enabled: true
+      circuitBreaker:
+        enabled: true
+        #超过50%错误，那么开启熔断
+        errorThresholdPercentage: 30
+        #5个request之后才开始统计
+        requestVolumeThreshhold: 5
+        sleepWindowInMilliseconds: 10000
+        #forceClosed,forceOpen 强制关闭/开启熔断开关
+      execution:
+        timeout:
+          enable: true
+        isolation:
+          thread:
+            interruptOnTimeout: true
+            interruptOnFutureCancel: true
+            timeoutInMilliseconds: 10000
+      metrics:
+        rollingState:
+          timeInMilliseconds: 20000
+feign:
+  hystrix:
+    enabled: true

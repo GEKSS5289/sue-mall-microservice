@@ -1,5 +1,9 @@
 package com.sue;
 
+import com.sue.item.service.ItemService;
+import com.sue.order.fallback.itemservice.ItemCommentsFeignClient;
+import com.sue.user.service.AddressService;
+import com.sue.user.service.UserService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -13,10 +17,14 @@ import tk.mybatis.spring.annotation.MapperScan;
 @SpringBootApplication
 @MapperScan(basePackages = "com.sue.order.mapper")
 @ComponentScan(basePackages = {"com.sue","org.n3r.idworker"})
-@EnableFeignClients(basePackages = {
-        "com.sue.user.service",
-        "com.sue.item.service"
-})
+@EnableFeignClients(
+        clients = {
+                ItemCommentsFeignClient.class,
+                ItemService.class,
+                UserService.class,
+                AddressService.class
+        }
+)
 public class OrderServerApplication {
     public static void main(String[] args) {
         SpringApplication.run(OrderServerApplication.class,args);
