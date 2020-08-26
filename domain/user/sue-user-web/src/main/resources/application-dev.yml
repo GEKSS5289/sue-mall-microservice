@@ -3,9 +3,12 @@ server:
 
 spring:
   datasource:                                           # 数据源的相关配置
-    url: jdbc:mysql://localhost:3306/foodie-shop-dev?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=GMT%2B8
-    password: 123456
-    username: root
+#    url: jdbc:mysql://localhost:3306/foodie-shop-dev?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&serverTimezone=GMT%2B8
+#    password: 123456
+#    username: root
+     url: ${mysqldb.url}
+     password: ${mysqldb.password}
+     username: ${mysqldb.username}
   redis:
 #    password: shushun
 #    cluster:
@@ -27,19 +30,6 @@ spring:
 mybatis:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
-
-management:
-  endpoint:
-    health:
-      show-details: always
-  endpoints:
-    web:
-      exposure:
-        include: '*'
-  security:
-    enabled: false
-
 
 hystrix:
   command:
