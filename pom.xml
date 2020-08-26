@@ -38,6 +38,7 @@
         <module>domain/file/sue-file-web</module>
         <module>platform/sue-hystrix-turbine</module>
         <module>platform/sue-hystrix-dashboard</module>
+        <module>platform/sue-config-center</module>
 
     </modules>
 
